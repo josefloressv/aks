@@ -111,6 +111,8 @@ az aks get-credentials --name mycluster
 # Remove toleration when use Sytem node pool
 kubectl taint nodes <NodeName> CriticalAddonsOnly:NoSchedule-
 
+# Delete cluster
+az aks delete --name mycluster --verbose
 ```
 
 Kubernetes
