@@ -30,7 +30,6 @@ https://help.pluralsight.com/hc/en-us/articles/24392988447636-Azure-cloud-sandbo
 ### Create a Kubernetes Cluster
 
 Basic
-* Re
 * Cluster preset configuration: dev/test
 * Region: East US
 * AZ: 1,2
@@ -95,8 +94,19 @@ az configure --defaults group=1-22e5f5c3-playground-sandbox
 # List AKS clusters
 az aks list -o table
 
+# Create AKS Cluster
+az aks create \
+  --name mycluster \
+  --node-vm-size Standard_D2s_v3 \
+  --node-count 1 \
+  --enable-cluster-autoscaler \
+  --min-count 1 \
+  --max-count 2 \
+  --generate-ssh-keys \
+  --verbose
+
 # Connect kubectl to an AKS cluster
-az aks get-credentials --name aks1-test
+az aks get-credentials --name mycluster
 
 # Remove toleration when use Sytem node pool
 kubectl taint nodes <NodeName> CriticalAddonsOnly:NoSchedule-
@@ -119,4 +129,10 @@ k expose deployment nginx --type=LoadBalancer --port=80 --target-port=80 --name=
 k create deployment dotnet --image=josefloressv/dotnet:v1 --replicas=2
 k expose deployment dotnet --type=LoadBalancer --port=80 --target-port=8080 --name=dotnetlb
 
+
+# Scale a deployment and check AKS Autoscaling
+k scale deployment/dotnet --replicas=30
+
+# Count pods in per node
+kubectl get pods -o wide --no-headers | awk '{print $7}' | sort | uniq -c
 ```
