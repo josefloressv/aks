@@ -1,5 +1,22 @@
 # AKS
-AKS
+Azure Kubernetes Service (AKS) PlayGround
+
+## Prerequisites
+
+1. Install Azure SDK
+2. Install kubectl
+3. Login to Azure
+
+```bash
+# Install Azure SDK
+brew install azure-cli
+
+# Install kubectl
+brew install kubernetes-cli
+
+# Login to Azure
+gcloud init
+```
 
 ## A Cloud Guru Restrictions
 https://help.pluralsight.com/hc/en-us/articles/24392988447636-Azure-cloud-sandbox
